@@ -63,7 +63,8 @@ class DeployTimeMetric:
 
 
 def image_sha(img_url: str) -> Optional[str]:
-    sha_regex = re.compile(r"sha256:.*")
+    sha_regex = re.compile(r"master-*")
+    #sha_regex = re.compile(r"sha256:.*")
     try:
         return sha_regex.search(img_url).group()
     except AttributeError:
