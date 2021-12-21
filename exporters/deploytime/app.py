@@ -1,6 +1,4 @@
 import logging
-logging.basicConfig(level=logging.DEBUG)
-
 import os
 import re
 import time
