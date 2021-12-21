@@ -97,7 +97,7 @@ def generate_metrics(
     replicas_dict = (
         get_replicas(dyn_client, "v1", "ReplicationController")
         | get_replicas(dyn_client, "apps/v1", "ReplicaSet")
-        | get_replicas(dyn_client, "extensions/v1beta1", "ReplicaSet")
+        #| get_replicas(dyn_client, "extensions/v1beta1", "ReplicaSet")
     )
 
     for pod in pods:
