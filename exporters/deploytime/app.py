@@ -130,7 +130,8 @@ def generate_metrics(
                 continue
 
             mark_as_seen(full_path)
-            images = (sha for c in pod.spec.containers if (sha := image_sha(c.image)))
+            # images = (sha for c in pod.spec.containers if (sha := image_sha(c.image)))
+            images = (sha for s in pod.status.containerStatuses if (sha := image_sha(s.imageID)))
 
             # Since a commit will be built into a particular image and there could be multiple
             # containers (images) per pod, we will push one metric per image/container in the
