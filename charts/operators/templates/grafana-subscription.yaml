@@ -4,9 +4,8 @@ kind: Subscription
 metadata:
   name: grafana-operator
 spec:
-  channel: alpha
-  installPlanApproval: Manual
+  channel: v4
   name: grafana-operator
   source: community-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: grafana-operator.v3.5.0
+  startingCSV: grafana-operator.v4.1.0
