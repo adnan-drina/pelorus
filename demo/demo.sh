@@ -7,8 +7,8 @@ url=$2
 
 # Will create spring rest deployment
 pushd $path/basic-nginx
-   ansible-galaxy install -r requirements.yml --roles-path=galaxy
-   ansible-playbook -i ./.applier/ galaxy/openshift-applier/playbooks/openshift-cluster-seed.yml -e skip_manual_promotion=true -e source_code_url=$url
+   ansible-galaxy install -r requirements.yml --roles-path=galaxy --force
+   ansible-playbook -i ./.applier/ galaxy/openshift-applier/playbooks/openshift-cluster-seed.yml -e skip_manual_promotion=true -e source_code_url=$url -vvvv
 popd
 
 # Run through a loop, so demo presenter can deploy as many sample apps, with commits, as necessary.
@@ -49,4 +49,3 @@ oc start-build basic-nginx-pipeline -n basic-nginx-build
 * )     echo "Try again.";;
 esac
 done
-
