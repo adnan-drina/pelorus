@@ -122,13 +122,22 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                 "$['items'][*]['metadata']['labels']['" + str(app_label) + "']"
             )
             jsonpath_expr = parse(jsonpath_str)
+            
+            logging.debug(
+                "JSON export: %s"
+                % (jsonpath_expr)
+            )
 
             found = jsonpath_expr.find(builds)
             runs_found = jsonpath_expr.find(pipeline_runs)
             
             logging.debug(
-                "Builds and PipelineRuns found: %s builds, %s pipeline runs"
-                % (builds, pipeline_runs)
+                "Builds found: %s"
+                % (builds)
+            )
+            logging.debug(
+                "PipelineRuns found: %s"
+                % (pipeline_runs)
             )
 
             apps = [match.value for match in found]
