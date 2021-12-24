@@ -128,7 +128,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
             
             logging.debug(
                 "Builds and PipelineRuns found: %s builds, %s pipeline runs"
-                % (found, runs_found)
+                % (builds, pipeline_runs)
             )
 
             apps = [match.value for match in found]
