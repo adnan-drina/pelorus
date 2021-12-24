@@ -106,6 +106,10 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
             v1_builds = self._kube_client.resources.get(
                 api_version="build.openshift.io/v1", kind="Build"
             )
+            logging.debug(
+                "Searching for PipelineRuns with label: %s in namespace: %s"
+                % (app_label, namespace)
+            )
             v1_tekton = self._kube_client.resources.get(
                 api_version="tekton.dev/v1beta1", kind="PipelineRun"
             )
@@ -121,6 +125,11 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
 
             found = jsonpath_expr.find(builds)
             runs_found = jsonpath_expr.find(pipeline_runs)
+            
+            logging.debug(
+                "Builds and PipelineRuns found: %s builds, %s pipeline runs"
+                % (found, runs_found)
+            )
 
             apps = [match.value for match in found]
             pipelines = [match.value for match in runs_found]
