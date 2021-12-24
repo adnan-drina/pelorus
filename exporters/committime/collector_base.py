@@ -128,11 +128,6 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
 
             apps = [match.value for match in found]
             pipelines = [match.value for match in runs_found]
-
-            logging.debug(
-                "Searching for Apps: %s and Pipelines: %s"
-                % (apps, pipelines)
-            )
                 
             if not apps and not pipelines:
                 continue
