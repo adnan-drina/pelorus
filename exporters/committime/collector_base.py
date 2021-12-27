@@ -106,10 +106,6 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
             v1_builds = self._kube_client.resources.get(
                 api_version="build.openshift.io/v1", kind="Build"
             )
-            logging.debug(
-                "Searching for PipelineRuns with label: %s in namespace: %s"
-                % (app_label, namespace)
-            )
             v1_tekton = self._kube_client.resources.get(
                 api_version="tekton.dev/v1beta1", kind="PipelineRun"
             )
@@ -128,7 +124,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
 
             apps = [match.value for match in found]
             pipelines = [match.value for match in runs_found]
-                
+
             if not apps and not pipelines:
                 continue
             elif apps:
@@ -140,7 +136,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                     builds_by_app[app] = list(
                         filter(lambda b: b.metadata.labels[app_label] == app, builds.items)
                     )
-                
+
                 metrics += self.get_metrics_from_apps(builds_by_app, namespace)
             elif pipelines:
                 # remove duplicates
@@ -151,7 +147,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                     runs_by_app[pipeline] = list(
                         filter(lambda b: b.metadata.labels[app_label] == pipeline, pipeline_runs.items)
                     )
-                
+
                 metrics += self.get_metric_from_pipelineruns(runs_by_app, namespace)
 
         return metrics
@@ -318,7 +314,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                                             commit_sha = prop.value
                                         if prop.name == "IMAGE_DIGEST":
                                             image_hash = prop.value
-                                        
+
 
                     metric.repo_url = repo_url
                     metric.commit_hash = commit_sha
@@ -351,7 +347,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                             "Returning sha: %s, commit_timestamp: %s, from cache."
                             % (commit_sha, metric.commit_timestamp)
                         )
-                    
+
                 except Exception:
                     logging.error(
                         "Cannot collect metrics from run: %s" % (run.metadata.name)
@@ -361,7 +357,7 @@ class AbstractCommitCollector(pelorus.AbstractPelorusExporter):
                     logging.debug("Adding metric for pipeline %s" % pipeline)
                     metrics.append(metric)
         return metrics
-    
+
     def _get_repo_from_build_config(self, build):
         """
         Determines the repository url from the parent BuildConfig that created the Build resource in case
