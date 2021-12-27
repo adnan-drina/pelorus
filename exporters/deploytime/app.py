@@ -61,7 +61,6 @@ class DeployTimeMetric:
 
 
 def image_sha(img_url: str) -> Optional[str]:
-    #sha_regex = re.compile(r"master-*")
     sha_regex = re.compile(r"sha256:.*")
     try:
         return sha_regex.search(img_url).group()
@@ -96,7 +95,7 @@ def generate_metrics(
     replicas_dict = (
         get_replicas(dyn_client, "v1", "ReplicationController")
         | get_replicas(dyn_client, "apps/v1", "ReplicaSet")
-        #| get_replicas(dyn_client, "extensions/v1beta1", "ReplicaSet")
+        | get_replicas(dyn_client, "extensions/v1beta1", "ReplicaSet")
     )
 
     for pod in pods:
