@@ -44,5 +44,3 @@ exporters:
           value: DEBUG
       source_ref: master
       source_url: https://github.com/adnan-drina/pelorus.git
-
-snapshot_schedule: "@monthly"
