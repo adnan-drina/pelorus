@@ -18,22 +18,31 @@ deployment:
 
 exporters:
   instances:
-    # Values file for exporter helm chart
-  - app_name: deploytime-exporter
-    source_context_dir: exporters/
-    extraEnv:
-    - name: APP_FILE
-      value: deploytime/app.py
-    source_ref: master
-    source_url: https://github.com/redhat-cop/pelorus.git
-  - app_name: committime-exporter
-    env_from_secrets:
-    - github-secret
-    source_context_dir: exporters/
-    extraEnv:
-    - name: APP_FILE
-      value: committime/app.py
-    source_ref: master
-    source_url: https://github.com/redhat-cop/pelorus.git
+    - app_name: deploytime-exporter
+      source_context_dir: exporters/
+      extraEnv:
+        - name: APP_FILE
+          value: deploytime/app.py
+        #        - name: APP_LABEL
+        #          value: pelorus/app.name
+        - name: NAMESPACES
+          value: gitops-demo-cicd,gitops-demo-stage,gitops-demo-dev
+        - name: LOG_LEVEL
+          value: DEBUG
+      source_ref: master
+      source_url: http://github.com/adnan-drina/pelorus.git
+    - app_name: committime-exporter
+      env_from_secrets:
+        - github-secret
+      source_context_dir: exporters/
+      extraEnv:
+        - name: APP_FILE
+          value: committime/app.py
+        - name: NAMESPACES
+          value: gitops-demo-cicd,gitops-demo-stage,gitops-demo-dev
+        - name: LOG_LEVEL
+          value: DEBUG
+      source_ref: master
+      source_url: https://github.com/adnan-drina/pelorus.git
 
 snapshot_schedule: "@monthly"
