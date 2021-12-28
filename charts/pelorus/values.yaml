@@ -44,3 +44,18 @@ exporters:
           value: DEBUG
       source_ref: master
       source_url: https://github.com/adnan-drina/pelorus.git
+    - app_name: failure-exporter
+      env_from_secrets:
+        - jira-secret
+      source_context_dir: exporters/
+      extraEnv:
+        - name: APP_FILE
+          value: failure/app.py
+        - name: NAMESPACES
+          value: gitops-demo-cicd,gitops-demo-stage,gitops-demo-dev
+        - name: LOG_LEVEL
+          value: DEBUG
+      source_ref: master
+      source_url: https://github.com/adnan-drina/pelorus.git
+
+snapshot_schedule: "@monthly"

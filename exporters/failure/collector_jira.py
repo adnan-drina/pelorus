@@ -22,7 +22,8 @@ class JiraFailureCollector(AbstractFailureCollector):
         # Connect to Jira
         jira = JIRA(options, basic_auth=(self.user, self.apikey))
         # TODO FIXME This may need to be modified to suit needs and have a time period.
-        query_string = "type=bug and priority=highest"
+        # query_string = "type=bug and priority=highest"
+        query_string = "type=bug"
         if self.projects is not None:
             query_string = query_string + " and project in (" + self.projects + ")"
         jira = JIRA(options, basic_auth=(self.user, self.apikey))
